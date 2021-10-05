@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+  <title>Reciter Application</title>
+</head>
+<body>
+    <h1 class="display-5">Signup</h1>
+    <form th:action="@{'/signup'}" th:object="${newUser}" action="/signup" method="post">
+      <input type="input" id="firstName" name="firstName" placeholder="Enter First Name" th:field="*{firstName}" required>
+      <input type="input" id="lastName" name="lastName" placeholder="Enter Last Name" th:field="*{lastName}" required>
+      <input type="input" id="username" name="username" placeholder="Enter Username" th:field="*{username}" required>
+      <input type="password" id="password" name="password" placeholder="Enter Password" th:field="*{password}" required>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</body>
+</html>
