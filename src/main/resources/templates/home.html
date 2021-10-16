@@ -6,12 +6,35 @@
 
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
     <title>Welcome to Reciter Application</title>
+    <style>
+        .main-body{
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        #logout-button{
+            margin-left:auto;
+            margin-top:1%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Reciter</h1>
+    <div class="main-body">
+    <div class="row container-fluid">
+        <h1>Welcome to the Reciter</h1>
+        <a href="/logout" id="logout-button"><button class="btn btn-danger">Logout</button></a>
+    </div>
     <hr>
     <div class="row">
         <div class="col-lg">
+            <h2>How to Convert your Artiles to Audio files ? </h2>
+            <ol>
+                <li>Select the voice for your articles (Listen to different voices before choosing one)</li>
+                <li>Paste your article in the text area</li>
+                <li>Click Submit (This may take few seconds)</li>
+                <li>Download your article audio file :)</li>
+            </ol>
             <form th:action="@{'/convertTextToSpeech'}" th:object="${inputTextFromUser}" action="/convertTextToSpeech" method="POST">
                 <textarea id="textToConvert" name="textToConvert" rows="4" cols="50" placeholder="Enter your text here...." th:field="*{textToConvert}"></textarea>
                 <div>
@@ -23,8 +46,9 @@
                     </select>
                 </div>
                 <br><br>
-                <input type="submit">
+                <button class="btn btn-success">Generate Audio...</button>
             </form>
+            <div style="margin-top:20px;">
             <ul th:if = "${userAudioFileList != null}" th:each="filename:${userAudioFileList}">
                 <li>
                     <div>
@@ -34,13 +58,17 @@
                     </div>
                 </li>
             </ul>
+            </div>
         </div>
         <div class="col-sm">
+            <div>
+                <h2>Checkout available voice samples below</h2>
+            </div>
             <div>
                 <audio id="demo-voice-player" src="https://sample-voice-output-reciter.s3.us-east-2.amazonaws.com/demo-male-voice.mp3" type="audio/mpeg" controls> I'm sorry. You're browser doesn't support HTML5 <code>audio</code>. </audio>
             </div>
             <div>
-                <label for="sample-voices">Choose a voice:</label>
+                <label for="sample-voices">Choose a voice sample to listen to :</label>
                 <select name="sample-voices" id="sample-voices" onchange="sampleVoiceDemo()">
                     <option value="demo-male-voice">MALE</option>
                     <option value="demo-female-voice">FEMALE</option>
@@ -49,7 +77,7 @@
             </div>
         </div>
     </div>
-    <a href="/logout"><button>Logout</button></a>
+    </div>
 
     <script>
         function sampleVoiceDemo(){

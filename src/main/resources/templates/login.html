@@ -6,16 +6,27 @@
 
   <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
   <title>Reciter Application</title>
+  <style>
+        .login-form{
+            width:80%;
+            text-align: center;
+            margin-left:auto;
+            margin-right:auto;
+        }
+  </style>
 </head>
 <body>
+<div class="login-form">
 <h1 class="display-5">Login</h1>
 <form action="/login" method="post">
   <input type="input" id="username" name="username" placeholder="Enter your username">
   <input type="password" id="password" name="password" placeholder="Enter your password">
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
+  <hr>
 <div class="form-group" style="margin-top: 0.5em;">
   <label><a href="/signup">Click here to sign up</a></label>
+</div>
 </div>
 </body>
 </html>
