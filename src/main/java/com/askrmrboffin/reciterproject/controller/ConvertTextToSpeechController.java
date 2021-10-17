@@ -1,6 +1,7 @@
 package com.askrmrboffin.reciterproject.controller;
 
 import com.askrmrboffin.reciterproject.data.InputTextFromUser;
+import com.askrmrboffin.reciterproject.service.GenerateIframeURLService;
 import com.askrmrboffin.reciterproject.service.S3FileUploadService;
 import com.askrmrboffin.reciterproject.service.TextToSpeechService;
 import com.askrmrboffin.reciterproject.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Timestamp;
 
@@ -27,6 +29,9 @@ public class ConvertTextToSpeechController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    GenerateIframeURLService generateIframeURLService;
 
     @PostMapping("/convertTextToSpeech")
     public String convertMyTextToSpeech(@ModelAttribute("inputTextFromUser") InputTextFromUser inputTextFromUser, Authentication authentication){
@@ -89,6 +94,16 @@ public class ConvertTextToSpeechController {
         boolean result = s3FileUploadService.deleteSampleFileFromS3Bucket(filename);
         if(result)
             return "redirect:/";
+        return "redirect:/failure";
+    }
+
+    @GetMapping("/file/generateIframe")
+    public String generateIframeForAudioFile(@RequestParam(name = "filename")String filename, RedirectAttributes redirectAttributes){
+        String generatedIframe = generateIframeURLService.generateIframeUrl(filename);
+        if(generatedIframe != null && generatedIframe.length() > 0) {
+            redirectAttributes.addFlashAttribute("generatedIframeUrl", generatedIframe);
+            return "redirect:/";
+        }
         return "redirect:/failure";
     }
 }

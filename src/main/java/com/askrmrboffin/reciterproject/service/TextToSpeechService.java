@@ -86,7 +86,9 @@ public class TextToSpeechService {
                         .build();
 
                 InputStream inputStream = new ByteArrayInputStream(audioContents.toByteArray());
-                s3Client.putObject(bucketName, stringObjKeyName, inputStream, new ObjectMetadata());
+                ObjectMetadata objectMetadata = new ObjectMetadata();
+                objectMetadata.setContentType("audio/mp3");
+                s3Client.putObject(bucketName, stringObjKeyName, inputStream, objectMetadata);
 
                 // After this file has been uploaded to S3 - add the respective entry in the UserAudioFiles table
                 User user = userRepository.findUserByUsername(username);
