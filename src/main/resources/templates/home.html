@@ -36,8 +36,12 @@
                 <li>Generate Iframe tag for embedding it in your blog</li>
                 <li>Or download your article audio file :)</li>
             </ol>
-            <form th:action="@{'/convertTextToSpeech'}" th:object="${inputTextFromUser}" action="/convertTextToSpeech" method="POST">
+            <form th:action="@{'/convertTextToSpeech'}" th:object="${inputTextFromUser}" action="/convertTextToSpeech" method="POST" style="border: 1px solid #000000; padding: 15px 10px;">
+                <label for="filename-by-user">Save File as : </label>
+                <input type="text" id="filename-by-user" placeholder="Provide a filename">
+                <br><br>
                 <textarea id="textToConvert" name="textToConvert" rows="4" cols="50" placeholder="Enter your text here...." th:field="*{textToConvert}"></textarea>
+                <br><br>
                 <div>
                     <label for="voice-type">Choose a voice:</label>
                     <select name="voice-type" id="voice-type" th:field="*{voiceType}">
