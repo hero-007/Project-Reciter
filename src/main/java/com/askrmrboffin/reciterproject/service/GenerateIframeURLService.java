@@ -24,7 +24,6 @@ public class GenerateIframeURLService {
                         .withRegion(clientRegion)
                         .build();
                 URL objectUrl = s3Client.getUrl(bucketName, filename);
-                System.out.print("Object URL is - "+objectUrl.toString());
                 objectURL = objectUrl.toString();
             }catch(Exception e){
                 e.printStackTrace();

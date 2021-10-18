@@ -3,10 +3,12 @@ package com.askrmrboffin.reciterproject.data;
 public class InputTextFromUser {
     private String textToConvert;
     private String voiceType;
+    private String userProvidedFilename;
 
-    public InputTextFromUser(String textToConvert, String voiceType) {
+    public InputTextFromUser(String textToConvert, String voiceType, String userProvidedFilename) {
         this.textToConvert = textToConvert;
         this.voiceType = voiceType;
+        this.userProvidedFilename = userProvidedFilename;
     }
 
     public InputTextFromUser() {
@@ -26,5 +28,13 @@ public class InputTextFromUser {
 
     public void setVoiceType(String voiceType) {
         this.voiceType = voiceType;
+    }
+
+    public String getUserProvidedFilename() {
+        return userProvidedFilename;
+    }
+
+    public void setUserProvidedFilename(String userProvidedFilename) {
+        this.userProvidedFilename = userProvidedFilename;
     }
 }

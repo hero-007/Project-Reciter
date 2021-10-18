@@ -38,10 +38,15 @@ public class ConvertTextToSpeechController {
         try{
             String inputStringFromUser = inputTextFromUser.getTextToConvert();
             String voiceType = inputTextFromUser.getVoiceType();
+            String userProvidedFileName = UserUtils.sanitizeFileName(inputTextFromUser.getUserProvidedFilename())+".mp3";
+            boolean isUserProvidedFileNameAvailable = !(s3FileUploadService.checkIfObjectAlreadyExist(userProvidedFileName));
             String loggedInUser = authentication.getName();
             String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
             timestamp = timestamp.replace(" ", "_");
             String uploadAudioFileName = UserUtils.sanitizeFileName(loggedInUser+"_"+timestamp)+".mp3";
+
+            if(isUserProvidedFileNameAvailable == true)
+                uploadAudioFileName = userProvidedFileName;
 
             if (UserUtils.isUserInputStringValid(inputStringFromUser)) {
                 textToSpeechService.testTextToSpeech(inputStringFromUser, uploadAudioFileName, loggedInUser, voiceType);

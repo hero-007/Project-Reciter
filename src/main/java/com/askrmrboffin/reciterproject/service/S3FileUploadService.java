@@ -98,4 +98,20 @@ public class S3FileUploadService {
         }
         return true;
     }
+
+    public boolean checkIfObjectAlreadyExist(String objectName){
+        Regions clientRegion = Regions.US_EAST_2;
+        String bucketName = "reciter-output-files";
+
+        try{
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .build();
+
+            return s3Client.doesObjectExist(bucketName, objectName);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

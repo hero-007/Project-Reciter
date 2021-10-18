@@ -34,11 +34,13 @@
                 <li>Paste your article in the text area</li>
                 <li>Click Submit (This may take few seconds)</li>
                 <li>Generate Iframe tag for embedding it in your blog</li>
-                <li>Or download your article audio file :)</li>
+                <li>Or download your article audio file &#128515;</li>
             </ol>
             <form th:action="@{'/convertTextToSpeech'}" th:object="${inputTextFromUser}" action="/convertTextToSpeech" method="POST" style="border: 1px solid #000000; padding: 15px 10px;">
-                <label for="filename-by-user">Save File as : </label>
-                <input type="text" id="filename-by-user" placeholder="Provide a filename">
+                <label><strong>Note : </strong>If the filename that you provide already exist in our DB, a auto-generated filename will be used.</label><br><br>
+                <label for="filename-by-user">Save File as  </label>
+                <input type="text" id="filename-by-user" placeholder="Provide a filename" aria-describedby="filenameNote" th:field="*{userProvidedFilename}">
+                <small id="filenameNote" class="form-text text-muted" style="margin-top:0px;">*Please provide filename without extension.</small>
                 <br><br>
                 <textarea id="textToConvert" name="textToConvert" rows="4" cols="50" placeholder="Enter your text here...." th:field="*{textToConvert}"></textarea>
                 <br><br>
@@ -88,6 +90,7 @@
                 <form action="#">
                     <label for="generatedIframe"><h3>Generated Iframe</h3></label>
                     <textarea name="generatedIframe" id="generatedIframe" cols="50" rows="4" disabled th:if ="${generatedIframeUrl}" th:text="${generatedIframeUrl}"></textarea>
+                    <textarea name="generatedIframe" cols="50" rows="4" disabled th:unless="${generatedIframeUrl}"></textarea>
                 </form>
             </div>
         </div>
