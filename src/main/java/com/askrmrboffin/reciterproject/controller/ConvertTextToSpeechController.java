@@ -45,7 +45,7 @@ public class ConvertTextToSpeechController {
             timestamp = timestamp.replace(" ", "_");
             String uploadAudioFileName = UserUtils.sanitizeFileName(loggedInUser+"_"+timestamp)+".mp3";
 
-            if(isUserProvidedFileNameAvailable == true)
+            if(inputTextFromUser.getUserProvidedFilename() != null && inputTextFromUser.getUserProvidedFilename().length() > 0 && isUserProvidedFileNameAvailable == true)
                 uploadAudioFileName = userProvidedFileName;
 
             if (UserUtils.isUserInputStringValid(inputStringFromUser)) {

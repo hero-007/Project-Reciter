@@ -92,6 +92,7 @@
                     <textarea name="generatedIframe" id="generatedIframe" cols="50" rows="4" disabled th:if ="${generatedIframeUrl}" th:text="${generatedIframeUrl}"></textarea>
                     <textarea name="generatedIframe" cols="50" rows="4" disabled th:unless="${generatedIframeUrl}"></textarea>
                 </form>
+                <button class="btn btn-primary" onclick="copyToClipboard()">Copy Text to clipboard</button>
             </div>
         </div>
     </div>
@@ -108,6 +109,19 @@
                     audioTag.src = "https://sample-voice-output-reciter.s3.us-east-2.amazonaws.com/demo-female-voice.mp3";
             }else if(selectedDemoVoice.localeCompare("demo-neutral-voice") == 0){
                     audioTag.src = "https://sample-voice-output-reciter.s3.us-east-2.amazonaws.com/demo-neutral-voice.mp3";
+            }
+        }
+
+        function copyToClipboard(){
+            var copyText = document.getElementById("generatedIframe");
+            if(copyText !== null){
+                var textValue = copyText.value;
+                var sampleTextarea = document.createElement("textarea");
+                document.body.appendChild(sampleTextarea);
+                sampleTextarea.value = textValue; //save main text in it
+                sampleTextarea.select(); //select textarea contenrs
+                document.execCommand("copy");
+                document.body.removeChild(sampleTextarea);
             }
         }
     </script>
